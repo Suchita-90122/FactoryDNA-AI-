@@ -1,0 +1,1716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FactoryDNA AI | Manufacturing Intelligence</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #0b0d0f;
+            color: #e8eaed;
+            min-height: 100vh;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 235px;
+            height: 100vh;
+            background: #111416;
+            border-right: 1px solid #25292c;
+            padding: 26px 18px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 0 8px 28px;
+            border-bottom: 1px solid #25292c;
+        }
+
+        .logo-mark {
+            width: 34px;
+            height: 34px;
+            border: 2px solid #4da3ff;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #4da3ff;
+        }
+
+        .logo h2 {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .logo span {
+            display: block;
+            color: #777d82;
+            font-size: 10px;
+            margin-top: 2px;
+        }
+
+        .nav-title {
+            color: #666d72;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 28px 10px 10px;
+        }
+
+        .nav-item {
+            padding: 11px 12px;
+            border-radius: 6px;
+            color: #92989d;
+            font-size: 13px;
+            margin-bottom: 4px;
+            cursor: pointer;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: #1b2024;
+            color: #ffffff;
+        }
+
+        .nav-item.active {
+            border-left: 2px solid #4da3ff;
+        }
+
+        .service-status {
+            margin-top: 8px;
+            padding: 10px 12px;
+            border-bottom: 1px solid #202427;
+            font-size: 11px;
+            color: #858b90;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #49c878;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            margin-left: 235px;
+            padding: 28px 32px 45px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 26px;
+        }
+
+        .page-title h1 {
+            font-size: 25px;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+        }
+
+        .page-title p {
+            color: #777e83;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .system-status {
+            border: 1px solid #29302f;
+            background: #111416;
+            border-radius: 6px;
+            padding: 9px 13px;
+            font-size: 12px;
+            color: #9da5aa;
+        }
+
+        .system-status .dot {
+            background: #49c878;
+        }
+
+        .analyze-btn {
+            border: 0;
+            background: #e9edf0;
+            color: #111416;
+            padding: 10px 17px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .analyze-btn:hover {
+            background: #ffffff;
+        }
+
+        /* ================= CARDS ================= */
+
+        .card {
+            background: #111416;
+            border: 1px solid #252a2d;
+            border-radius: 8px;
+        }
+
+        .card-header {
+            padding: 15px 18px;
+            border-bottom: 1px solid #24282b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header h3 {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .card-header span {
+            color: #676e73;
+            font-size: 10px;
+        }
+
+        /* ================= KPI ================= */
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .kpi {
+            padding: 17px 18px;
+        }
+
+        .kpi-label {
+            color: #737a7f;
+            font-size: 11px;
+            margin-bottom: 9px;
+        }
+
+        .kpi-value {
+            font-size: 23px;
+            font-weight: 500;
+        }
+
+        .kpi-unit {
+            color: #777e83;
+            font-size: 11px;
+            margin-left: 3px;
+        }
+
+        .kpi-bottom {
+            margin-top: 9px;
+            color: #596166;
+            font-size: 10px;
+        }
+
+        /* ================= PROCESS ================= */
+
+        .process-card {
+            margin-bottom: 14px;
+        }
+
+        .process-content {
+            padding: 22px 20px 24px;
+        }
+
+        .process-line {
+            display: flex;
+            align-items: stretch;
+            width: 100%;
+        }
+
+        .stage {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .stage-box {
+            min-height: 115px;
+            padding: 14px;
+            background: #15191b;
+            border: 1px solid #292e31;
+            border-radius: 7px;
+            position: relative;
+        }
+
+        .stage.active .stage-box {
+            border-color: #3c79aa;
+        }
+
+        .stage.warning .stage-box {
+            border-color: #8a6830;
+        }
+
+        .stage-risk .stage-box {
+            border-color: #784141;
+        }
+
+        .stage-name {
+            color: #c8cdd0;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .stage-value {
+            font-size: 17px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .stage-label {
+            color: #676f74;
+            font-size: 10px;
+        }
+
+        .stage-status {
+            position: absolute;
+            bottom: 12px;
+            left: 14px;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+        }
+
+        .normal {
+            color: #54c47d;
+        }
+
+        .warning {
+            color: #d5a64e;
+        }
+
+        .risk {
+            color: #e06b6b;
+        }
+
+        .stage-status::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+            background: currentColor;
+        }
+
+        .arrow {
+            width: 32px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555c61;
+            font-size: 17px;
+        }
+
+        .process-footer {
+            margin-top: 18px;
+            padding-top: 15px;
+            border-top: 1px solid #25292c;
+            display: flex;
+            justify-content: space-between;
+            color: #6d7479;
+            font-size: 10px;
+        }
+
+        /* ================= TWO COLUMN ================= */
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        /* ================= CHART ================= */
+
+        .chart-container {
+            padding: 18px;
+            height: 255px;
+        }
+
+        .chart-svg {
+            width: 100%;
+            height: 190px;
+        }
+
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            color: #555d62;
+            font-size: 9px;
+            margin-top: -3px;
+        }
+
+        /* ================= WASTE ================= */
+
+        .risk-card {
+            min-height: 290px;
+        }
+
+        .risk-content {
+            padding: 20px;
+        }
+
+        .risk-main {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .risk-circle {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at center, #111416 58%, transparent 59%),
+                conic-gradient(#d25b5b 0deg, #d25b5b 300deg, #303538 300deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .risk-number {
+            font-size: 27px;
+            font-weight: 500;
+        }
+
+        .risk-number small {
+            font-size: 11px;
+            color: #777e83;
+        }
+
+        .risk-info h2 {
+            font-size: 17px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .risk-info p {
+            color: #747c81;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .risk-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .risk-meta div {
+            background: #15191b;
+            padding: 11px;
+            border: 1px solid #252a2d;
+            border-radius: 5px;
+        }
+
+        .risk-meta span {
+            display: block;
+            color: #626a6f;
+            font-size: 9px;
+            margin-bottom: 5px;
+        }
+
+        .risk-meta strong {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* ================= LOWER GRID ================= */
+
+        .lower-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        /* ================= ROOT CAUSE ================= */
+
+        .cause-list {
+            padding: 18px;
+        }
+
+        .cause {
+            margin-bottom: 17px;
+        }
+
+        .cause:last-child {
+            margin-bottom: 0;
+        }
+
+        .cause-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 7px;
+        }
+
+        .cause-name {
+            font-size: 11px;
+            color: #c1c6c9;
+        }
+
+        .cause-value {
+            font-size: 10px;
+            color: #777e83;
+        }
+
+        .bar {
+            height: 6px;
+            background: #252a2d;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: #5d91bd;
+            border-radius: 4px;
+            width: 0;
+            transition: width .7s ease;
+        }
+
+        /* ================= RECOMMENDATIONS ================= */
+
+        .recommendations {
+            padding: 14px 18px 18px;
+        }
+
+        .recommendation {
+            padding: 12px 0;
+            border-bottom: 1px solid #24282b;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .recommendation:last-child {
+            border-bottom: none;
+        }
+
+        .check {
+            width: 18px;
+            height: 18px;
+            border: 1px solid #3d7253;
+            color: #58bd7a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+
+        .recommendation p {
+            font-size: 11px;
+            line-height: 1.5;
+            color: #a8afb3;
+        }
+
+        /* ================= PARAMETERS ================= */
+
+        .parameter-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .parameter-table th {
+            text-align: left;
+            padding: 12px 16px;
+            color: #60686d;
+            font-size: 9px;
+            text-transform: uppercase;
+            font-weight: 500;
+            border-bottom: 1px solid #25292c;
+        }
+
+        .parameter-table td {
+            padding: 11px 16px;
+            border-bottom: 1px solid #202427;
+            font-size: 11px;
+            color: #adb3b7;
+        }
+
+        .parameter-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-text {
+            font-size: 9px;
+            text-transform: uppercase;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            margin-top: 28px;
+            text-align: center;
+            color: #4e5559;
+            font-size: 10px;
+        }
+
+        /* ================= LOADING ================= */
+
+        .loading {
+            opacity: .5;
+            pointer-events: none;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1100px) {
+            .sidebar {
+                width: 190px;
+            }
+
+            .main {
+                margin-left: 190px;
+            }
+
+            .process-line {
+                overflow-x: auto;
+                padding-bottom: 8px;
+            }
+
+            .stage {
+                min-width: 145px;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .two-column,
+            .lower-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        <div class="logo-mark">F</div>
+        <div>
+            <h2>FactoryDNA</h2>
+            <span>MANUFACTURING INTELLIGENCE</span>
+        </div>
+    </div>
+
+    <div class="nav-title">Workspace</div>
+
+    <div class="nav-item active">Dashboard</div>
+    <div class="nav-item">Live Data</div>
+    <div class="nav-item">Process Analysis</div>
+    <div class="nav-item">Root Cause Analysis</div>
+    <div class="nav-item">Optimization</div>
+
+    <div class="nav-title">SOA Services</div>
+
+    <div class="service-status">
+        <span><span class="dot"></span>IoT Collection</span>
+        <span>5001</span>
+    </div>
+
+    <div class="service-status">
+        <span><span class="dot"></span>Data Processing</span>
+        <span>5002</span>
+    </div>
+
+    <div class="service-status">
+        <span><span class="dot"></span>AI Prediction</span>
+        <span>5000</span>
+    </div>
+
+    <div class="service-status">
+        <span><span class="dot"></span>Optimization</span>
+        <span>5004</span>
+    </div>
+
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+    <!-- HEADER -->
+
+    <div class="topbar">
+
+        <div class="page-title">
+            <h1>Factory Overview</h1>
+            <p>Manufacturing process intelligence and waste monitoring</p>
+        </div>
+
+        <div class="top-actions">
+
+            <div class="system-status">
+                <span class="dot"></span>
+                All services operational
+            </div>
+
+            <button class="analyze-btn" onclick="runAnalysis()">
+                Run Factory Analysis
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= KPI ================= -->
+
+    <section class="kpi-grid">
+
+        <div class="card kpi">
+            <div class="kpi-label">TEMPERATURE</div>
+            <div>
+                <span class="kpi-value" id="temperature">--</span>
+                <span class="kpi-unit">°C</span>
+            </div>
+            <div class="kpi-bottom">Live sensor reading</div>
+        </div>
+
+        <div class="card kpi">
+            <div class="kpi-label">PRESSURE</div>
+            <div>
+                <span class="kpi-value" id="pressure">--</span>
+                <span class="kpi-unit">bar</span>
+            </div>
+            <div class="kpi-bottom">Live sensor reading</div>
+        </div>
+
+        <div class="card kpi">
+            <div class="kpi-label">MACHINE SPEED</div>
+            <div>
+                <span class="kpi-value" id="speed">--</span>
+                <span class="kpi-unit">RPM</span>
+            </div>
+            <div class="kpi-bottom">Operating speed</div>
+        </div>
+
+        <div class="card kpi">
+            <div class="kpi-label">VIBRATION</div>
+            <div>
+                <span class="kpi-value" id="vibration">--</span>
+                <span class="kpi-unit">mm/s</span>
+            </div>
+            <div class="kpi-bottom">Machine condition</div>
+        </div>
+
+    </section>
+
+
+    <!-- ================= PROCESS ================= -->
+
+    <section class="card process-card">
+
+        <div class="card-header">
+            <h3>Manufacturing Process Overview</h3>
+            <span id="processTime">Waiting for analysis</span>
+        </div>
+
+        <div class="process-content">
+
+            <div class="process-line">
+
+                <!-- RAW MATERIAL -->
+
+                <div class="stage">
+                    <div class="stage-box">
+
+                        <div class="stage-name">
+                            01 &nbsp; Raw Material
+                        </div>
+
+                        <div class="stage-value" id="materialValue">
+                            --
+                        </div>
+
+                        <div class="stage-label">
+                            kg consumed
+                        </div>
+
+                        <div class="stage-status normal">
+                            Normal
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="arrow">→</div>
+
+
+                <!-- PROCESSING -->
+
+                <div class="stage">
+                    <div class="stage-box">
+
+                        <div class="stage-name">
+                            02 &nbsp; Processing
+                        </div>
+
+                        <div class="stage-value" id="processingValue">
+                            --
+                        </div>
+
+                        <div class="stage-label">
+                            operating speed
+                        </div>
+
+                        <div id="processingStatus" class="stage-status normal">
+                            Normal
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="arrow">→</div>
+
+
+                <!-- HEATING -->
+
+                <div class="stage">
+                    <div class="stage-box">
+
+                        <div class="stage-name">
+                            03 &nbsp; Heating
+                        </div>
+
+                        <div class="stage-value" id="heatingValue">
+                            --
+                        </div>
+
+                        <div class="stage-label">
+                            temperature
+                        </div>
+
+                        <div id="heatingStatus" class="stage-status normal">
+                            Normal
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="arrow">→</div>
+
+
+                <!-- COOLING -->
+
+                <div class="stage">
+                    <div class="stage-box">
+
+                        <div class="stage-name">
+                            04 &nbsp; Cooling
+                        </div>
+
+                        <div class="stage-value" id="coolingValue">
+                            --
+                        </div>
+
+                        <div class="stage-label">
+                            vibration
+                        </div>
+
+                        <div id="coolingStatus" class="stage-status normal">
+                            Normal
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="arrow">→</div>
+
+
+                <!-- QUALITY -->
+
+                <div class="stage">
+                    <div class="stage-box">
+
+                        <div class="stage-name">
+                            05 &nbsp; Quality Check
+                        </div>
+
+                        <div class="stage-value" id="qualityValue">
+                            --
+                        </div>
+
+                        <div class="stage-label">
+                            production quality
+                        </div>
+
+                        <div id="qualityStatus" class="stage-status normal">
+                            Normal
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="arrow">→</div>
+
+
+                <!-- FINISHED -->
+
+                <div class="stage">
+                    <div class="stage-box">
+
+                        <div class="stage-name">
+                            06 &nbsp; Finished Product
+                        </div>
+
+                        <div class="stage-value" id="finishedValue">
+                            --
+                        </div>
+
+                        <div class="stage-label">
+                            AI prediction
+                        </div>
+
+                        <div id="finishedStatus" class="stage-status normal">
+                            Waiting
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="process-footer">
+
+                <span>
+                    Data source: IoT Collection Service
+                </span>
+
+                <span>
+                    Processing → AI Prediction → Optimization
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CHART + RISK ================= -->
+
+    <div class="two-column">
+
+        <!-- PERFORMANCE -->
+
+        <section class="card">
+
+            <div class="card-header">
+                <h3>Process Performance</h3>
+                <span>Current operating cycle</span>
+            </div>
+
+            <div class="chart-container">
+
+                <svg class="chart-svg"
+                     viewBox="0 0 700 190"
+                     preserveAspectRatio="none">
+
+                    <!-- grid -->
+
+                    <line x1="0" y1="30" x2="700" y2="30"
+                          stroke="#252a2d"/>
+
+                    <line x1="0" y1="75" x2="700" y2="75"
+                          stroke="#252a2d"/>
+
+                    <line x1="0" y1="120" x2="700" y2="120"
+                          stroke="#252a2d"/>
+
+                    <line x1="0" y1="165" x2="700" y2="165"
+                          stroke="#252a2d"/>
+
+                    <!-- quality line -->
+
+                    <polyline
+                        id="qualityLine"
+                        points="0,130 100,120 200,125 300,105 400,110 500,95 600,100 700,90"
+                        fill="none"
+                        stroke="#4d8ab8"
+                        stroke-width="2"/>
+
+                    <!-- speed line -->
+
+                    <polyline
+                        id="speedLine"
+                        points="0,150 100,140 200,145 300,125 400,130 500,115 600,120 700,105"
+                        fill="none"
+                        stroke="#777e83"
+                        stroke-width="1.5"
+                        stroke-dasharray="4 4"/>
+
+                </svg>
+
+                <div class="chart-labels">
+                    <span>Start</span>
+                    <span>Process</span>
+                    <span>Heating</span>
+                    <span>Cooling</span>
+                    <span>Quality</span>
+                    <span>Current</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- WASTE RISK -->
+
+        <section class="card risk-card">
+
+            <div class="card-header">
+                <h3>Waste Risk Assessment</h3>
+                <span>AI Prediction</span>
+            </div>
+
+            <div class="risk-content">
+
+                <div class="risk-main">
+
+                    <div class="risk-circle">
+
+                        <div class="risk-number">
+                            <span id="riskProbability">--</span>
+                            <small>%</small>
+                        </div>
+
+                    </div>
+
+                    <div class="risk-info">
+
+                        <h2 id="riskLevel">
+                            Awaiting analysis
+                        </h2>
+
+                        <p id="predictionText">
+                            Run the factory analysis to generate
+                            the current waste prediction.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="risk-meta">
+
+                    <div>
+                        <span>Prediction</span>
+                        <strong id="prediction">--</strong>
+                    </div>
+
+                    <div>
+                        <span>Model status</span>
+                        <strong>Online</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- ================= LOWER SECTION ================= -->
+
+    <div class="lower-grid">
+
+        <!-- ROOT CAUSE -->
+
+        <section class="card">
+
+            <div class="card-header">
+                <h3>Root Cause Analysis</h3>
+                <span>Contributing parameters</span>
+            </div>
+
+            <div class="cause-list" id="causeList">
+
+                <div class="cause">
+
+                    <div class="cause-top">
+                        <span class="cause-name">
+                            Production Quality
+                        </span>
+
+                        <span class="cause-value">
+                            --
+                        </span>
+                    </div>
+
+                    <div class="bar">
+                        <div class="bar-fill" style="width: 75%"></div>
+                    </div>
+
+                </div>
+
+                <div class="cause">
+
+                    <div class="cause-top">
+                        <span class="cause-name">
+                            Machine Speed
+                        </span>
+
+                        <span class="cause-value">
+                            --
+                        </span>
+                    </div>
+
+                    <div class="bar">
+                        <div class="bar-fill" style="width: 55%"></div>
+                    </div>
+
+                </div>
+
+                <div class="cause">
+
+                    <div class="cause-top">
+                        <span class="cause-name">
+                            Temperature
+                        </span>
+
+                        <span class="cause-value">
+                            --
+                        </span>
+                    </div>
+
+                    <div class="bar">
+                        <div class="bar-fill" style="width: 35%"></div>
+                    </div>
+
+                </div>
+
+                <div class="cause">
+
+                    <div class="cause-top">
+                        <span class="cause-name">
+                            Vibration
+                        </span>
+
+                        <span class="cause-value">
+                            --
+                        </span>
+                    </div>
+
+                    <div class="bar">
+                        <div class="bar-fill" style="width: 25%"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- OPTIMIZATION -->
+
+        <section class="card">
+
+            <div class="card-header">
+                <h3>Optimization Recommendations</h3>
+                <span>Generated from current conditions</span>
+            </div>
+
+            <div class="recommendations" id="recommendations">
+
+                <div class="recommendation">
+
+                    <div class="check">✓</div>
+
+                    <p>
+                        Run factory analysis to generate
+                        process-specific recommendations.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- ================= PARAMETERS ================= -->
+
+    <section class="card" style="margin-top:14px;">
+
+        <div class="card-header">
+
+            <h3>Current Factory Parameters</h3>
+
+            <span>Live IoT readings</span>
+
+        </div>
+
+        <table class="parameter-table">
+
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                    <th>Unit</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>Temperature</td>
+                    <td id="tableTemp">--</td>
+                    <td>°C</td>
+                    <td id="tableTempStatus" class="status-text">--</td>
+                </tr>
+
+                <tr>
+                    <td>Pressure</td>
+                    <td id="tablePressure">--</td>
+                    <td>bar</td>
+                    <td class="status-text normal">Normal</td>
+                </tr>
+
+                <tr>
+                    <td>Machine Speed</td>
+                    <td id="tableSpeed">--</td>
+                    <td>RPM</td>
+                    <td id="tableSpeedStatus" class="status-text">--</td>
+                </tr>
+
+                <tr>
+                    <td>Vibration</td>
+                    <td id="tableVibration">--</td>
+                    <td>mm/s</td>
+                    <td id="tableVibrationStatus" class="status-text">--</td>
+                </tr>
+
+                <tr>
+                    <td>Energy Consumption</td>
+                    <td id="tableEnergy">--</td>
+                    <td>kWh</td>
+                    <td id="tableEnergyStatus" class="status-text">--</td>
+                </tr>
+
+                <tr>
+                    <td>Raw Material Usage</td>
+                    <td id="tableMaterial">--</td>
+                    <td>kg</td>
+                    <td id="tableMaterialStatus" class="status-text">--</td>
+                </tr>
+
+                <tr>
+                    <td>Production Quality</td>
+                    <td id="tableQuality">--</td>
+                    <td>%</td>
+                    <td id="tableQualityStatus" class="status-text">--</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+
+    <footer>
+        FactoryDNA AI · Manufacturing Process Intelligence · SOA-based architecture
+    </footer>
+
+</main>
+
+
+<script>
+
+    const API_URL = "http://127.0.0.1:5003/api/pipeline";
+
+
+    // =========================================================
+    // RUN FACTORY ANALYSIS
+    // =========================================================
+
+    async function runAnalysis() {
+
+        const button = document.querySelector(".analyze-btn");
+
+        button.textContent = "Analyzing...";
+        button.classList.add("loading");
+
+        try {
+
+            const response = await fetch(API_URL);
+
+            if (!response.ok) {
+                throw new Error("Pipeline request failed");
+            }
+
+            const data = await response.json();
+
+            updateDashboard(data);
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert(
+                "Unable to connect to FactoryDNA services.\n\n" +
+                "Make sure start_factorydna.bat is running."
+            );
+
+        } finally {
+
+            button.textContent = "Run Factory Analysis";
+            button.classList.remove("loading");
+
+        }
+
+    }
+
+
+    // =========================================================
+    // UPDATE DASHBOARD
+    // =========================================================
+
+    function updateDashboard(data) {
+
+        const sensor = data.iot_data;
+        const ai = data.ai_prediction;
+        const optimization = data.optimization;
+
+
+        // ---------------- KPI ----------------
+
+        setText("temperature", sensor.temperature);
+        setText("pressure", sensor.pressure);
+        setText("speed", Math.round(sensor.speed));
+        setText("vibration", sensor.vibration);
+
+
+        // ---------------- PROCESS ----------------
+
+        setText(
+            "materialValue",
+            Number(sensor.raw_material_usage).toFixed(1) + " kg"
+        );
+
+        setText(
+            "processingValue",
+            Math.round(sensor.speed) + " RPM"
+        );
+
+        setText(
+            "heatingValue",
+            Number(sensor.temperature).toFixed(1) + " °C"
+        );
+
+        setText(
+            "coolingValue",
+            Number(sensor.vibration).toFixed(2) + " mm/s"
+        );
+
+        setText(
+            "qualityValue",
+            Number(sensor.production_quality).toFixed(1) + "%"
+        );
+
+        setText(
+            "finishedValue",
+            ai.prediction
+        );
+
+
+        // ---------------- PROCESS STATUS ----------------
+
+        setStageStatus(
+            "processingStatus",
+            sensor.speed > 1600 ? "High" : "Normal",
+            sensor.speed > 1600 ? "warning" : "normal"
+        );
+
+        setStageStatus(
+            "heatingStatus",
+            sensor.temperature > 90 ? "High" : "Normal",
+            sensor.temperature > 90 ? "warning" : "normal"
+        );
+
+        setStageStatus(
+            "coolingStatus",
+            sensor.vibration > 5 ? "Warning" : "Normal",
+            sensor.vibration > 5 ? "warning" : "normal"
+        );
+
+        setStageStatus(
+            "qualityStatus",
+            sensor.production_quality < 80 ? "At Risk" : "Normal",
+            sensor.production_quality < 80 ? "risk" : "normal"
+        );
+
+        setStageStatus(
+            "finishedStatus",
+            ai.prediction === "WASTE" ? "At Risk" : "Normal",
+            ai.prediction === "WASTE" ? "risk" : "normal"
+        );
+
+
+        // ---------------- TIME ----------------
+
+        setText(
+            "processTime",
+            "Updated " + new Date().toLocaleTimeString()
+        );
+
+
+        // ---------------- WASTE RISK ----------------
+
+        setText(
+            "riskProbability",
+            ai.waste_probability
+        );
+
+        setText(
+            "riskLevel",
+            ai.risk_level + " RISK"
+        );
+
+        setText(
+            "prediction",
+            ai.prediction
+        );
+
+
+        const predictionText =
+            ai.prediction === "WASTE"
+                ? "Current operating conditions indicate an elevated probability of production waste."
+                : "Current operating conditions are within the model's normal range.";
+
+        setText(
+            "predictionText",
+            predictionText
+        );
+
+
+        // ---------------- TABLE ----------------
+
+        setText("tableTemp", Number(sensor.temperature).toFixed(2));
+        setText("tablePressure", Number(sensor.pressure).toFixed(2));
+        setText("tableSpeed", Math.round(sensor.speed));
+        setText("tableVibration", Number(sensor.vibration).toFixed(2));
+        setText("tableEnergy", Number(sensor.energy_consumption).toFixed(2));
+        setText("tableMaterial", Number(sensor.raw_material_usage).toFixed(2));
+        setText("tableQuality", Number(sensor.production_quality).toFixed(2));
+
+
+        setTableStatus(
+            "tableTempStatus",
+            sensor.temperature > 90 ? "High" : "Normal",
+            sensor.temperature > 90 ? "warning" : "normal"
+        );
+
+        setTableStatus(
+            "tableSpeedStatus",
+            sensor.speed > 1600 ? "High" : "Normal",
+            sensor.speed > 1600 ? "warning" : "normal"
+        );
+
+        setTableStatus(
+            "tableVibrationStatus",
+            sensor.vibration > 5 ? "High" : "Normal",
+            sensor.vibration > 5 ? "warning" : "normal"
+        );
+
+        setTableStatus(
+            "tableEnergyStatus",
+            sensor.energy_consumption > 90 ? "High" : "Normal",
+            sensor.energy_consumption > 90 ? "warning" : "normal"
+        );
+
+        setTableStatus(
+            "tableMaterialStatus",
+            sensor.raw_material_usage > 110 ? "High" : "Normal",
+            sensor.raw_material_usage > 110 ? "warning" : "normal"
+        );
+
+        setTableStatus(
+            "tableQualityStatus",
+            sensor.production_quality < 80 ? "At Risk" : "Normal",
+            sensor.production_quality < 80 ? "risk" : "normal"
+        );
+
+
+        // ---------------- ROOT CAUSE ----------------
+
+        updateRootCauses(
+            optimization.root_cause_contributors
+        );
+
+
+        // ---------------- RECOMMENDATIONS ----------------
+
+        updateRecommendations(
+            optimization.optimization_recommendations
+        );
+
+    }
+
+
+    // =========================================================
+    // ROOT CAUSES
+    // =========================================================
+
+    function updateRootCauses(contributors) {
+
+        const list = document.getElementById("causeList");
+
+        list.innerHTML = "";
+
+        if (!contributors || contributors.length === 0) {
+
+            list.innerHTML = `
+                <div style="color:#697176;font-size:11px;padding:10px 0;">
+                    No major contributing parameters detected.
+                </div>
+            `;
+
+            return;
+        }
+
+
+        contributors.forEach((item, index) => {
+
+            let width;
+
+            if (item.impact === "HIGH") {
+                width = 80;
+            } else if (item.impact === "MEDIUM") {
+                width = 55;
+            } else {
+                width = 30;
+            }
+
+
+            const div = document.createElement("div");
+
+            div.className = "cause";
+
+            div.innerHTML = `
+
+                <div class="cause-top">
+
+                    <span class="cause-name">
+                        ${formatParameter(item.parameter)}
+                    </span>
+
+                    <span class="cause-value">
+                        ${item.impact} IMPACT
+                    </span>
+
+                </div>
+
+                <div class="bar">
+
+                    <div
+                        class="bar-fill"
+                        style="width:${width}%"
+                    ></div>
+
+                </div>
+            `;
+
+            list.appendChild(div);
+
+        });
+
+    }
+
+
+    // =========================================================
+    // RECOMMENDATIONS
+    // =========================================================
+
+    function updateRecommendations(recommendations) {
+
+        const container =
+            document.getElementById("recommendations");
+
+        container.innerHTML = "";
+
+
+        if (!recommendations || recommendations.length === 0) {
+
+            container.innerHTML = `
+
+                <div class="recommendation">
+
+                    <div class="check">✓</div>
+
+                    <p>
+                        No immediate optimization actions required.
+                    </p>
+
+                </div>
+            `;
+
+            return;
+        }
+
+
+        recommendations.forEach(text => {
+
+            const div = document.createElement("div");
+
+            div.className = "recommendation";
+
+            div.innerHTML = `
+
+                <div class="check">✓</div>
+
+                <p>${text}</p>
+
+            `;
+
+            container.appendChild(div);
+
+        });
+
+    }
+
+
+    // =========================================================
+    // HELPERS
+    // =========================================================
+
+    function setText(id, value) {
+
+        const element = document.getElementById(id);
+
+        if (element) {
+            element.textContent = value;
+        }
+
+    }
+
+
+    function setStageStatus(id, text, className) {
+
+        const element = document.getElementById(id);
+
+        if (!element) return;
+
+        element.textContent = text;
+
+        element.className =
+            "stage-status " + className;
+
+    }
+
+
+    function setTableStatus(id, text, className) {
+
+        const element = document.getElementById(id);
+
+        if (!element) return;
+
+        element.textContent = text;
+
+        element.className =
+            "status-text " + className;
+
+    }
+
+
+    function formatParameter(parameter) {
+
+        return parameter
+            .replaceAll("_", " ")
+            .replace(/\b\w/g, c => c.toUpperCase());
+
+    }
+
+
+    // =========================================================
+    // AUTO LOAD
+    // =========================================================
+
+    window.addEventListener("load", () => {
+
+        runAnalysis();
+
+    });
+
+</script>
+
+</body>
+</html>
